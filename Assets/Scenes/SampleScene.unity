@@ -296,6 +296,9 @@ MonoBehaviour:
     type: 3}
   _PooledBullet: {fileID: 3763482421195954543, guid: d6025b7cda1df1345943d4b14753caca,
     type: 3}
+  _ExploitablePooledBullet: {fileID: 4670229592119544321, guid: d62a793656169ed42b9a29cbdea895f2,
+    type: 3}
+  _PooledParticles: {fileID: 1627239018, guid: 58031971248655a4a99733d1712cbb5f, type: 3}
 --- !u!4 &1771812524
 Transform:
   m_ObjectHideFlags: 0

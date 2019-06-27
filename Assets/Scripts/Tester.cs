@@ -9,9 +9,17 @@ public class Tester : MonoBehaviour
     [SerializeField]
     private PoolableObject _PooledBullet;
 
+    [SerializeField]
+    private PoolableObject _ExploitablePooledBullet;
+
+    [SerializeField]
+    private PoolableObject _PooledParticles;
+
     private void Start()
     {
         PoolManager.CreatePool(_PooledBullet, 3);
+        PoolManager.CreatePool(_ExploitablePooledBullet, 3);
+        PoolManager.CreatePool(_PooledParticles, 2);
     }
 
     private void Update()
@@ -29,6 +37,11 @@ public class Tester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             PoolManager.GetNext(_PooledBullet, Vector3.right, Quaternion.identity);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PoolManager.GetNext(_ExploitablePooledBullet, Vector3.right, Quaternion.identity);
         }
     }
 

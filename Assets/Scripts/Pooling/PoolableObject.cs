@@ -8,6 +8,7 @@ namespace ObjectPooling
         [SerializeField]
         private float _LifeSpan = 3f;
 
+        [HideInInspector]
         public int Id;
 
         private void OnEnable()
