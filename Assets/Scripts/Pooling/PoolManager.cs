@@ -1,28 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace ObjectPooling
 {
     public static class PoolManager
     {
-        private static Dictionary<int, List<PoolableObject>> _Pools = new Dictionary<int, List<PoolableObject>>();
-        private static Dictionary<int, int> _Indexes = new Dictionary<int, int>();
+        private static Dictionary<int, Stack<PoolableObject>> _Pools = new Dictionary<int, Stack<PoolableObject>>();
+
         private static readonly int _INITIAL_POOL_SIZE = 5;
 
         private static PoolableObject AddObjectToPool(PoolableObject prefab, int id)
         {
             var clone = GameObject.Instantiate(prefab);
             clone.gameObject.SetActive(false);
-            _Pools[id].Add(clone);
+            clone.Id = id;
+            _Pools[id].Push(clone);
             return clone;
+        }
+
+        public static void AddObjectToPool(PoolableObject poolableObject)
+        {
+            int id = poolableObject.Id;
+            if (!_Pools.ContainsKey(id))
+            {
+                return;
+            }
+
+            _Pools[id].Push(poolableObject);
         }
 
         public static void CreatePool(PoolableObject prefab, int poolSize)
         {
             var id = prefab.GetInstanceID();
-            _Pools[id] = new List<PoolableObject>(poolSize);
-            _Indexes[id] = 0;
+            _Pools[id] = new Stack<PoolableObject>(poolSize);
             for (int i = 0; i < poolSize; i++)
             {
                 AddObjectToPool(prefab, id);
@@ -46,13 +56,9 @@ namespace ObjectPooling
                 CreatePool(prefab, _INITIAL_POOL_SIZE);
             }
 
-            for (int i = 0; i < _Pools[id].Count; i++)
+            if (_Pools[id].Count > 0)
             {
-                _Indexes[id] = (_Indexes[id] + 1) % _Pools[id].Count;
-                if (_Pools[id][_Indexes[id]].gameObject.activeInHierarchy == false)
-                {
-                    return _Pools[id][_Indexes[id]];
-                }
+                return _Pools[id].Pop();
             }
 
             return AddObjectToPool(prefab, id);

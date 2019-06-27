@@ -8,6 +8,8 @@ namespace ObjectPooling
         [SerializeField]
         private float _LifeSpan = 3f;
 
+        public int Id;
+
         private void OnEnable()
         {
             StartCoroutine(Disabler());
@@ -22,6 +24,7 @@ namespace ObjectPooling
         {
             yield return new WaitForSeconds(_LifeSpan);
             gameObject.SetActive(false);
+            PoolManager.AddObjectToPool(this);
         }
     }
 }
