@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace ObjectPooling
 {
+    /// <summary>
+    /// Sets the object as a <see cref="PoolableObject"/>, with a specific <see cref="_LifeSpan"/>. Once disabled, it gets back to the <see cref="PoolManager"/>.
+    /// </summary>
     public class PoolableObject : MonoBehaviour
     {
         [SerializeField]

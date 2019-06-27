@@ -1,6 +1,9 @@
 ﻿using ObjectPooling;
 using UnityEngine;
 
+/// <summary>
+/// Spawn a <see cref="PoolableObject" /> as Particles when the game object gets disabled.
+/// </summary>
 public class SpawnParticles : MonoBehaviour
 {
     [SerializeField]

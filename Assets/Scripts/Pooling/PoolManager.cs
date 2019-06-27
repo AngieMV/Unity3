@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace ObjectPooling
 {
+    /// <summary>
+    /// Manage sets of <see cref="PoolableObject"/>'s pools. <br />
+    /// Before retrieving the <see cref="PoolableObject"/>s, is neccesary to create the Pool <see cref="CreatePool(PoolableObject, int)"/> in the running scene. <br />
+    /// Then, in order to get the next <see cref="PoolableObject"/>, use <see cref="GetNext(PoolableObject, Vector3, Quaternion, bool)"/>.
+    /// </summary>
     public static class PoolManager
     {
         private static Dictionary<int, Stack<PoolableObject>> _Pools = new Dictionary<int, Stack<PoolableObject>>();
@@ -48,7 +53,7 @@ namespace ObjectPooling
             return clone;
         }
 
-        public static PoolableObject GetNext(PoolableObject prefab)
+        private static PoolableObject GetNext(PoolableObject prefab)
         {
             var id = prefab.GetInstanceID();
             if (_Pools.ContainsKey(id) == false)

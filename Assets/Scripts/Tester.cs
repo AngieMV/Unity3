@@ -1,6 +1,9 @@
 ﻿using ObjectPooling;
 using UnityEngine;
 
+/// <summary>
+/// Used to test a normal object's Instantiation vs <see cref="PoolManager" />.
+/// </summary>
 public class Tester : MonoBehaviour
 {
     [SerializeField]
