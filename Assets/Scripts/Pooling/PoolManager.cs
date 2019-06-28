@@ -18,20 +18,20 @@ namespace ObjectPooling
         {
             var clone = GameObject.Instantiate(prefab);
             clone.gameObject.SetActive(false);
-            clone.Id = id;
+            clone.PoolID = id;
             _Pools[id].Push(clone);
             return clone;
         }
 
-        public static void AddObjectToPool(PoolableObject poolableObject)
+        public static void ReAddCloneToPool(PoolableObject clone)
         {
-            int id = poolableObject.Id;
+            int id = clone.PoolID;
             if (!_Pools.ContainsKey(id))
             {
                 return;
             }
 
-            _Pools[id].Push(poolableObject);
+            _Pools[id].Push(clone);
         }
 
         public static void CreatePool(PoolableObject prefab, int poolSize)

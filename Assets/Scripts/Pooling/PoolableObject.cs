@@ -11,8 +11,7 @@ namespace ObjectPooling
         [SerializeField]
         private float _LifeSpan = 3f;
 
-        [HideInInspector]
-        public int Id;
+        internal int PoolID;
 
         private void OnEnable()
         {
@@ -21,6 +20,7 @@ namespace ObjectPooling
 
         private void OnDisable()
         {
+            PoolManager.ReAddCloneToPool(this);
             StopAllCoroutines();
         }
 
@@ -28,7 +28,6 @@ namespace ObjectPooling
         {
             yield return new WaitForSeconds(_LifeSpan);
             gameObject.SetActive(false);
-            PoolManager.AddObjectToPool(this);
         }
     }
 }
